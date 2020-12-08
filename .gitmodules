@@ -1,0 +1,18 @@
+[submodule "ar_tag"]
+	path = ar_tag
+	url = https://github.com/LucaRoma97/ar_tag
+[submodule "mybot"]
+	path = mybot
+	url = https://github.com/LucaRoma97/mybot
+[submodule "zed-ros-examples"]
+	path = zed-ros-examples
+	url = https://github.com/LucaRoma97/zed-ros-examples
+[submodule "dockingrobot"]
+	path = dockingrobot
+	url = https://github.com/LucaRoma97/dockingrobot
+[submodule "distanceangle"]
+	path = distanceangle
+	url = https://github.com/LucaRoma97/distanceangle
+[submodule "zed-ros-wrapper"]
+	path = zed-ros-wrapper
+	url = https://github.com/LucaRoma97/zed-ros-wrapper
