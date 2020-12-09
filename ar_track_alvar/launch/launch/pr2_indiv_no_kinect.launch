@@ -1,0 +1,16 @@
+<launch>
+	<arg name="marker_size" default="10.0" />
+	<arg name="max_new_marker_error" default="0.01" />
+	<arg name="max_track_error" default="0.2" />
+	<arg name="output_frame" default="/chassis" />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
+		<param name="marker_size"           type="double" value="$(arg marker_size)" />
+		<param name="max_new_marker_error"  type="double" value="$(arg max_new_marker_error)" />
+		<param name="max_track_error"       type="double" value="$(arg max_track_error)" />
+		<param name="output_frame"          type="string" value="$(arg output_frame)" />
+
+		<remap from="camera_image"  to="/mybot/camera1/image_raw" />
+		<remap from="camera_info"   to="/mybot/camera1/camera_info" />
+	</node>
+</launch>
