@@ -15,13 +15,15 @@ First Phase             |  Second Phase
 :-------------------------:|:-------------------------:
 <img src="images/docking_algorithm.png" alt="alt text" width="350" height="350">  |  <img src="images/sign_second.png" alt="alt text" width="250" height="350">
 
-In the first the algorithm checks:
+The algorithm provides speeds until the distance is higher than the minimum distance (i.e. when the robot is approached with the station). 
+
+Then, in the first phase the algorithm checks:
 - the **orientation sigma** to be as close as possible to the maximum orientation **Phi**
 - the **angle** to understand from which part the the robot is approaching (from the left or from the right).
 
-While in the second 
+While in the second phase, the robot has to check the orientation to be as small as possible and to rotate clockwise or counterclockwise so that the robot recovers the right direction and straightly reaches the station. 
 
-Moreover the *speed* varies with the distance. The higher the distance, the higher will be the speed, kind of an Hook's law. Thanks to this trick the robot can approach to the station in a safe manner. 
+Moreover, the *speed* varies with the distance. The higher the distance, the higher will be the speed, kind of an Hook's law. Thanks to this trick the robot can approach to the station in a safe manner. 
 
 The flow chart of the algorithm:
 
@@ -43,9 +45,13 @@ The main functions developed for this algorithm are:
 [*ar_track_alvar*](http://wiki.ros.org/ar_track_alvar) is the state-of-the-art in ROS for detecting this kind of tags. It publishes the rotation and translation information between camera and tag on the form of "[*tf2_msgs*](http://docs.ros.org/en/jade/api/tf2_msgs/html/msg/TFMessage.html)" message on the "*tf*" topic.
 
 These vision data are subscribed and manipulated by the [**distanceangle**](https://github.com/LucaRoma97/distanceangle/blob/2b8b2acca71045aa31f86ee3143f056a31fe56de/src/distance_angle.cpp) node in order to extract the information about the *distance, angle* and *orientation* that are required for the algorithm. 
-These information are published as a custom message [*DistanceAngle.msg*](https://github.com/LucaRoma97/distanceangle/tree/2b8b2acca71045aa31f86ee3143f056a31fe56de/msg). 
+These information are published as a custom message [*DistanceAngle.msg*](https://github.com/LucaRoma97/distanceangle/tree/2b8b2acca71045aa31f86ee3143f056a31fe56de/msg).
 
-At the end, the [*DistanceAngle.msg*] message is subscribed by the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9) function that, based on the data, sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. The function computes the maximum orientation based on these data 
+<img src="images/distance_message.png" alt="alt text" width="250" height="150">
+
+At the end, the [*DistanceAngle.msg*] message is subscribed by the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9) function that, based on the data, computes the maximum orientation and sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. 
 This function is made of for loop and if statements. The if statements compare the robot orientation and the maximum orientation and check the sign of the angle.
 
-Here I have a short video on my Youtube channel of the [Simulation](https://www.youtube.com/watch?v=KLvEFriNRXY).
+<img src="images/camera_visualization.jpeg" alt="alt text" width="550" height="350">
+
+Here I have a short video of the [Simulation](https://www.youtube.com/watch?v=KLvEFriNRXY) on my Youtube channel.
