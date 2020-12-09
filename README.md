@@ -42,16 +42,27 @@ The main functions developed for this algorithm are:
 - **DistanceAngle**: Subscribe translation and rotation and provide distance, angle and orientation.
 - **Docking**: Provide the left and right speeds to the wheels based on the distance, angle and orientation.
 
+### ar_track_alvar
 [*ar_track_alvar*](http://wiki.ros.org/ar_track_alvar) is the state-of-the-art in ROS for detecting this kind of tags. It publishes the rotation and translation information between camera and tag on the form of "[*tf2_msgs*](http://docs.ros.org/en/jade/api/tf2_msgs/html/msg/TFMessage.html)" message on the "*tf*" topic.
 
+### DistanceAngle
 These vision data are subscribed and manipulated by the [**distanceangle**](https://github.com/LucaRoma97/distanceangle/blob/2b8b2acca71045aa31f86ee3143f056a31fe56de/src/distance_angle.cpp) node in order to extract the information about the *distance, angle* and *orientation* that are required for the algorithm. 
 These information are published as a custom message [*DistanceAngle.msg*](https://github.com/LucaRoma97/distanceangle/tree/2b8b2acca71045aa31f86ee3143f056a31fe56de/msg).
+This function subscribes "*tf*" and publishes on "*DistanceAngle*" and "*odomangle*". As regards the subscription, the corresponding callback function looks for two tf messages:
+- *odom / chassis*: to update the odometry between the robot and the fixed map reference frame.
+- *ar_marker_n / camera_optical_frame*: useful for the algorithm.
+
+As far as the publications, "*DistanceAngle*", as mentioned before, is used to publish the distance, angle and orientation, while "*odomangle*" publishes the Yaw angle on ROS Master. Since the *tf* rotation information are published as quaternions, one main step is to transform them in RPY angles.  Both data are subscribed by [*dockingrobot*](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9). The latter is just a *float* variable, while the former is represented below:
 
 <img src="images/distance_message.png" alt="alt text" width="250" height="150">
 
-At the end, the [*DistanceAngle.msg*] message is subscribed by the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9) function that, based on the data, computes the maximum orientation and sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. 
+
+### DockingRobot
+At the end, the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9) function subscribes them and, based on the data, computes the maximum orientation and sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. 
 This function is made of for loop and if statements. The if statements compare the robot orientation and the maximum orientation and check the sign of the angle.
 
 <img src="images/camera_visualization.jpeg" alt="alt text" width="550" height="350">
 
 Here I have a short video of the [Simulation](https://www.youtube.com/watch?v=KLvEFriNRXY) on my Youtube channel.
+
+The next step regards the design, building and integration of a [custom robot](). 
