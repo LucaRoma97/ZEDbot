@@ -61,6 +61,8 @@ The corresponding callback functions for the subscriptions look for two tf messa
 - *odom / chassis*: to update the odometry between the robot and the fixed map reference frame.
 - *ar_marker_n / camera_optical_frame*: geometric information between camera and tag, useful for the algorithm.
 
+<img src="images/camera_visualization.jpeg" alt="alt text" width="550" height="350">
+
 At the end, it publishes on "*DistanceAngle*" the distance, angle and orientation and the Yaw angle on "*odomangle*".
 Both pubblications are subscribed by [*dockingrobot*](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9). The latter is just a *float* variable, while the former is represented below:
 
@@ -82,8 +84,6 @@ As long as the robot is in the first phase it can only rotate either clockwise o
 
 Whenever it reaches the second phase it has to rotate only to adjust the orientation since the angle is inside the tolerance.
 
-<img src="images/camera_visualization.jpeg" alt="alt text" width="550" height="350">
-
 Here I have a short video of the [Simulation](https://www.youtube.com/watch?v=KLvEFriNRXY) on my Youtube channel.
 
-The next step regards the design, building and integration of a [custom robot](). 
+The next step regards the design, building and integration of a [custom robot](https://github.com/LucaRoma97/ZEDbot-robot-integration). 
