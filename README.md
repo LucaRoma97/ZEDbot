@@ -3,7 +3,7 @@ This folder is relative to the simulation stage developed for my master thesis w
 
 The main goal of this project has been to find a way to drive the robot from a position to the station.
 
-In this subsection, as first I will explain the algorithm to drive the robot from a defined position to the station, whenever it needs to be recharged. Then I'll explain how I have implemented the robot on Gazebo and I have translated the docking algorithm in C++ functions that communicate in ROS framework.
+In this subsection, as first I will explain the algorithm to drive the robot from a defined position to the station, whenever it needs to be recharged. Then I'll explain how I have implemented the robot on Gazebo and how I have translated the docking algorithm in C++ functions that communicate in ROS framework.
 
 
 ## Algorithm
