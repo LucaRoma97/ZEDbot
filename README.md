@@ -66,7 +66,9 @@ Both pubblications are subscribed by [*dockingrobot*](https://github.com/LucaRom
 
 <img src="images/distance_message.png" alt="alt text" width="250" height="150">
 
-For this functions, a class called **MarkerParameters** has been built. It incorporates the RPY angles and the algorithm parameters (distance, angle and orientation) as variables and *four public functions*. The first function converts the *tf* quaternions in RPY angles of the *odom / chassis* message, while the other three are used to tackle *ar_marker_n / camera_optical_frame* message. These latters convert the rotation quaternions in RPY, computes distance and angle from the translation information and publish them.
+For this functions, a class called **MarkerParameters** has been built. It incorporates the RPY angles and the algorithm parameters (distance, angle and orientation) as variables and *four public functions*. 
+
+The first function converts the *tf* quaternions in RPY angles of the *odom / chassis* message, while the other three are used to tackle *ar_marker_n / camera_optical_frame* message. These latters convert the rotation quaternions in RPY, computes distance and angle from the translation information and publish them.
 
 
 ### DockingRobot
