@@ -50,21 +50,35 @@ The main functions developed for this algorithm are:
 ### ar_track_alvar
 [*ar_track_alvar*](http://wiki.ros.org/ar_track_alvar) is the state-of-the-art in ROS for detecting this kind of tags. It publishes the rotation and translation information between camera and tag on the form of "[*tf2_msgs*](http://docs.ros.org/en/jade/api/tf2_msgs/html/msg/TFMessage.html)" message on the "*tf*" topic.
 
-### DistanceAngle
-These vision data are subscribed and manipulated by the [**distanceangle**](https://github.com/LucaRoma97/distanceangle/blob/2b8b2acca71045aa31f86ee3143f056a31fe56de/src/distance_angle.cpp) node in order to extract the information about the *distance, angle* and *orientation* that are required for the algorithm. 
-These information are published as a custom message [*DistanceAngle.msg*](https://github.com/LucaRoma97/distanceangle/tree/2b8b2acca71045aa31f86ee3143f056a31fe56de/msg).
-This function subscribes "*tf*" and publishes on "*DistanceAngle*" and "*odomangle*". As regards the subscription, the corresponding callback function looks for two tf messages:
-- *odom / chassis*: to update the odometry between the robot and the fixed map reference frame.
-- *ar_marker_n / camera_optical_frame*: useful for the algorithm.
+<img src="images/ar_pose_marker.jpeg" alt="alt text" width="450" height="320">  <img src="images/chassis_message.jpeg" alt="alt text" width="450" height="320">
 
-As far as the publications, "*DistanceAngle*", as mentioned before, is used to publish the distance, angle and orientation, while "*odomangle*" publishes the Yaw angle on ROS Master. Since the *tf* rotation information are published as quaternions, one main step is to transform them in RPY angles.  Both data are subscribed by [*dockingrobot*](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9). The latter is just a *float* variable, while the former is represented below:
+### DistanceAngle
+This rotation and translation information between camera and tag are subscribed and manipulated by the [**distanceangle**](https://github.com/LucaRoma97/distanceangle/blob/2b8b2acca71045aa31f86ee3143f056a31fe56de/src/distance_angle.cpp) node in order to extract the information about the *distance, angle* and *orientation*, that are required for the algorithm. Then they are published as a custom message [*DistanceAngle.msg*](https://github.com/LucaRoma97/distanceangle/tree/2b8b2acca71045aa31f86ee3143f056a31fe56de/msg).
+
+Moreover, this function also subscribes "*tf*" that keeps track of the robot movement (odometry) with respect a fixed map reference frame (*odom*). Since the *tf* rotation information are published as quaternions, one main step is to transform them in RPY angles.
+
+The corresponding callback functions for the subscriptions look for two tf messages:
+- *odom / chassis*: to update the odometry between the robot and the fixed map reference frame.
+- *ar_marker_n / camera_optical_frame*: geometric information between camera and tag, useful for the algorithm.
+
+At the end, it publishes on "*DistanceAngle*" the distance, angle and orientation and the Yaw angle on "*odomangle*".
+Both pubblications are subscribed by [*dockingrobot*](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9). The latter is just a *float* variable, while the former is represented below:
 
 <img src="images/distance_message.png" alt="alt text" width="250" height="150">
+
+For this functions, a class called **MarkerParameters** has been built. It incorporates the RPY angles and the algorithm parameters (distance, angle and orientation) as variables and *four public functions*. The first function converts the *tf* quaternions in RPY angles of the *odom / chassis* message, while the other three are used to tackle *ar_marker_n / camera_optical_frame* message. These latters convert the rotation quaternions in RPY, computes distance and angle from the translation information and publish them.
 
 
 ### DockingRobot
 At the end, the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9) function subscribes them and, based on the data, computes the maximum orientation and sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. 
-This function is made of for loop and if statements. The if statements compare the robot orientation and the maximum orientation and check the sign of the angle.
+
+This function is made of for loop and if statements. The if statements compare the robot orientation and the maximum orientation and check the sign of the angle. The speed signals are sent according to these checks in order to be compatible with the docking algorithm.
+
+For instance, if the robot is on the right hand during the first phase of the docking operation and its orientation is lower than the maximum orientation Phi, the algorithm communicates to the robot to rotate counterclockwise to recover the gap and vice versa. 
+
+As long as the robot is in the first phase it can only rotate either clockwise or counterclockwise (2 if statements). 
+
+Whenever it reaches the second phase it has to rotate only to adjust the orientation since the angle is inside the tolerance.
 
 <img src="images/camera_visualization.jpeg" alt="alt text" width="550" height="350">
 
