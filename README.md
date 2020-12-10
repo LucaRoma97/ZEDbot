@@ -41,6 +41,7 @@ The first step has been to implement the robot body with simple shapes (e.g. rec
 
 ## Docking operation
 ROS framework has been used as the development system for this project. It allows the nodes (i.e. C++ functions) to publish messages into topic to the ROS Master. These messages can be subscribed from other functions providing a communication system between them. 
+
 The main functions developed for this algorithm are:
 - [**ar_track_alvar**](https://github.com/LucaRoma97/ZEDbot/blob/master/README.md#ar_track_alvar): Detect the tag and publish the translation and rotation between camera and tag.
 - [**DistanceAngle**](https://github.com/LucaRoma97/ZEDbot/blob/master/README.md#distanceangle): Subscribe translation and rotation and provide distance, angle and orientation.
