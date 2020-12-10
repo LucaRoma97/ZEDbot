@@ -42,9 +42,9 @@ The first step has been to implement the robot body with simple shapes (e.g. rec
 ## Docking operation
 ROS framework has been used as the development system for this project. It allows the nodes (i.e. C++ functions) to publish messages into topic to the ROS Master. These messages can be subscribed from other functions providing a communication system between them. 
 The main functions developed for this algorithm are:
-- **ar_track_alvar**: Detect the tag and publish the translation and rotation between camera and tag.
-- **DistanceAngle**: Subscribe translation and rotation and provide distance, angle and orientation.
-- **Docking**: Provide the left and right speeds to the wheels based on the distance, angle and orientation.
+- [**ar_track_alvar**](https://github.com/LucaRoma97/ZEDbot/blob/master/README.md#ar_track_alvar): Detect the tag and publish the translation and rotation between camera and tag.
+- [**DistanceAngle**](https://github.com/LucaRoma97/ZEDbot/blob/master/README.md#distanceangle): Subscribe translation and rotation and provide distance, angle and orientation.
+- [**Docking**](https://github.com/LucaRoma97/ZEDbot/blob/master/README.md#docking): Provide the left and right speeds to the wheels based on the distance, angle and orientation.
 
 ### ar_track_alvar
 [*ar_track_alvar*](http://wiki.ros.org/ar_track_alvar) is the state-of-the-art in ROS for detecting this kind of tags. It publishes the rotation and translation information between camera and tag on the form of "[*tf2_msgs*](http://docs.ros.org/en/jade/api/tf2_msgs/html/msg/TFMessage.html)" message on the "*tf*" topic.
