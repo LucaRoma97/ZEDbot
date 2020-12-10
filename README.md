@@ -74,11 +74,11 @@ The first function converts the *tf* quaternions in RPY angles of the *odom / ch
 
 
 ### DockingRobot
-At the end, the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/tree/a28d013236bdf047667e3db3c0b97a9e773126d9) function subscribes them and, based on the data, computes the maximum orientation and sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. 
+At the end, the [**dockingrobot**](https://github.com/LucaRoma97/dockingrobot/blob/a28d013236bdf047667e3db3c0b97a9e773126d9/src/docking.cpp) function subscribes them and, based on the data, computes the maximum orientation and sends the speed signals to the differential drive functionality of the robot and so to the Gazebo simulation. 
 
-This function is made of for loop and if statements. The if statements compare the robot orientation and the maximum orientation and check the sign of the angle. The speed signals are sent according to these checks in order to be compatible with the docking algorithm.
+This function is made of for loop and if statements. The if statements compare the **robot orientation and the maximum orientation** and check the **sign of the angle**. The speed signals are sent according to these checks in order to be compatible with the docking algorithm.
 
-For instance, if the robot is on the right hand during the first phase of the docking operation and its orientation is lower than the maximum orientation Phi, the algorithm communicates to the robot to rotate counterclockwise to recover the gap and vice versa. 
+For instance, if the robot is on the **right hand** during the first phase of the docking operation and its orientation is lower than the maximum orientation Phi, the algorithm communicates to the robot to **rotate** counterclockwise to **recover the gap** and vice versa. 
 
 As long as the robot is in the first phase it can only rotate either clockwise or counterclockwise (2 if statements). 
 
