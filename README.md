@@ -13,7 +13,7 @@ For the development of the algorithm, I decided to divide the algorithm in 2 pha
 - **First Phase**: Approach to the perpendicular line to the tag.
 - **Second Phase**: Straight approach to the tag in a safe and precise manner.
 
-During the the docking operation, the robot should keep contact with the station, so the camera has to not lose the contact with the tag. One of the most important feature is the maximum orientation (Phi) the robot not lose the tag. In the first phase, the algorithm should make the robot rotate to reach the maximum orientation  (sigma -> Phi) in order to approach the perpendicular line as soon as possible and to complete the first phase. In this way, the robot can have enough space the complete the second phase. In the second phase the robot should reduce its speed until it stops in correspondence of the tag. 
+During the the docking operation, the robot should keep contact with the station, so the camera has to not lose the contact with the tag. One of the most important feature is the maximum orientation (Phi) the robot not lose the tag. In the first phase, the algorithm should make the robot rotate to reach the maximum orientation  (sigma -> Phi) in order to approach the perpendicular line as soon as possible and to complete the first phase. In this way, the robot can have enough space the complete the second phase. In the second phase the robot should reduce its speed until it stops in correspondence of the tag. ..
 First Phase             |  Second Phase
 :-------------------------:|:-------------------------:
 <img src="images/docking_algorithm.png" alt="alt text" width="350" height="350">  |  <img src="images/sign_second.png" alt="alt text" width="250" height="350">
